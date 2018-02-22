@@ -1,10 +1,13 @@
+//libraries for computing color and some light stats
 import stats from "stats-lite";
 import chroma from "chroma-js";
 
+//Color palette
 const colors = chroma
   .scale(["#0571b0", "#92c5de", "#f7f7f7", "#f4a582", "#ca0020"])
   .classes(5);
 
+//Create state for this reducer = state.map...
 export default function dataReducer(
   state = {
     loaded: false,
@@ -20,6 +23,7 @@ export default function dataReducer(
   },
   action
 ) {
+  //Helper functions
   let generateTimeSeries = data => {
     let forYear = {
       "2008": [],
@@ -68,10 +72,14 @@ export default function dataReducer(
     };
     return style;
   };
-
+  //Reducer Functions
+  //You see FULFILLED because AXIOS is using Promises. 
+  //This app uses a middleware to detect Promise fulfillment, and append FULFILLED when complete
+  //You'll see this in store.js
   switch (action.type) {
     case "STATE_DATA_FULFILLED": {
       state = {
+        //Don't mutate state, create a copy and update
         ...state,
         states: generateColors(action.payload.data.states, "2015"),
         stateTime: generateTimeSeries(action.payload.data.states),

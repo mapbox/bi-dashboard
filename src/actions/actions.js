@@ -1,3 +1,4 @@
+//This is how we get data from remote sources (AJAX/XHR with Promises)
 import axios from "axios";
 
 const stateURL =

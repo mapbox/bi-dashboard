@@ -1,6 +1,8 @@
 import React, { Component } from "react";
+//Slider Library
 import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
+//Chart Library
 import {
   VictoryChart,
   VictoryArea,
@@ -10,6 +12,7 @@ import {
   VictoryLabel,
   VictoryBrushContainer
 } from "victory";
+//Redux
 import { connect } from "react-redux";
 import * as actions from "../actions/actions";
 
@@ -25,6 +28,7 @@ function mapStateToProps(state) {
 }
 
 class Graph extends Component {
+  //This is internal component state for the Slider
   state = {
     domain: { x: [2014, 2015] }
   };
@@ -37,6 +41,7 @@ class Graph extends Component {
             <VictoryLabel text="Unemployment Distribution" />
           </div>
         </div>
+        {/*This is typical composition for Victory charts. Chart > Axis, Axis > Chart Type*/}
         <VictoryChart
           theme={VictoryTheme.material}
           domainPadding={10}
@@ -119,6 +124,7 @@ class Graph extends Component {
           />
         </VictoryChart>
         <div style={{ width: "65%", paddingLeft: "15%" }}>
+        {/*This is the Slider*/}
           <Slider
             marks={{
               2009: "2009",

@@ -1,9 +1,13 @@
 import React from "react";
+//Mapbox
 import mapboxgl from "mapbox-gl";
+//Redux
 import { connect } from "react-redux";
-import Graph from "./Graph";
 import * as actions from "../actions/actions";
+//Charts as single component
+import Graph from "./Graph";
 
+//Connect to state tree
 function mapStateToProps(state) {
   return {
     lng: state.map.lng,
@@ -16,6 +20,7 @@ function mapStateToProps(state) {
 
 class Map extends React.Component {
   map;
+  //Our function do fill colors on the map
   setFill = (layer, colors) => {
     const { property, stops } = colors;
     this.map.setPaintProperty(layer, "fill-color", {
@@ -28,10 +33,12 @@ class Map extends React.Component {
 
   constructor(props) {
     super(props);
+    //Set your Access Token in App.js
     mapboxgl.accessToken = this.props.token;
   }
 
   componentDidMount() {
+    //Build a map, using default state set in mapReducer.js.
     this.map = new mapboxgl.Map({
       container: this.mapContainer,
       style: this.props.mapStyle,
@@ -41,7 +48,9 @@ class Map extends React.Component {
       maxZoom: 6
     });
 
+    //Triggered when map style loads
     this.map.on("load", () => {
+      //Add Data
       this.map.addSource("states", {
         type: "vector",
         url: "mapbox://christoomey.6t4zi80h"
@@ -52,6 +61,7 @@ class Map extends React.Component {
         url: "mapbox://christoomey.71kd3rfd"
       });
 
+      //Add and Style a layer
       this.map.addLayer(
         {
           id: "states",
@@ -68,6 +78,7 @@ class Map extends React.Component {
             }
           }
         },
+        //Place viz layer underneath the last set of labels
         "waterway-label"
       );
 
@@ -87,38 +98,50 @@ class Map extends React.Component {
             }
           }
         },
+        //Place viz layer underneath the previous one. 
+        //This avoids click errors when the state layer is still visible
         "states"
       );
       this.setFill("states", this.props.stateColor);
       this.setFill("counties", this.props.countyColor);
     });
 
+    //Click handler for state layer
     this.map.on("click", "states", e => {
       let geoid = e.features[0].properties.GEOID;
       let name = e.features[0].properties.NAME;
+      //Dispatch Redux Action
       this.props.dispatch(actions.getSingleState(geoid, name));
     });
 
+    //Click handler for county layer
     this.map.on("click", "counties", e => {
       let geoid = e.features[0].properties.GEOID;
       let name = e.features[0].properties.NAME;
+      //Dispatch Redux Action
       this.props.dispatch(actions.getSingleCounty(geoid, name));
     });
 
+    //Move handler
     this.map.on('move', () => {
+      //Dispatch Redux Action
       this.props.dispatch(actions.mapMove(this.map.getZoom()));
     })
 
+    //Move-end handler
     this.map.on('moveend', () => {
+      //Dispatch Redux Action
       (this.props.zoom > 4.5 ? this.props.dispatch(actions.getHistogram('county')) : this.props.dispatch(actions.getHistogram('state')))
     })
   }
 
+  //When new props come in, repaint
   componentWillReceiveProps(nextProps) {
     this.setFill("states", this.props.stateColor);
     this.setFill("counties", this.props.countyColor);
   }
 
+  //Inline styled layout with relative sizing, based on viewport
   render() {
     return (
       <div style={{ display: "flex" }}>
