@@ -1,6 +1,6 @@
-# Mapbox for Business Intelligence - Build your own dashboard
-
 ![MapboxLogo](./mapbox-logo-color.png)
+
+# Mapbox for Business Intelligence - Build your own dashboard
 
 This React-based dashboard template was created for the [Mapbox Live session on building custom business intelligence tools](https://www.youtube.com/watch?time_continue=1&v=okUoOJkZmFw) and is a starting point for building your own dashboard or data visualization. You can use it to experiment with your own data, or fork it to create something new.
 
