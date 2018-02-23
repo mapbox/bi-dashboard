@@ -1,14 +1,14 @@
-# Mapbox Dashboard Boilerplate
+# Mapbox for Business Intelligence - Build your own dashboard
 
 ![MapboxLogo](./mapbox-logo-color.png)
 
-This is the dashboard template that was created for the [Mapbox for BI webinar](https://www.youtube.com/watch?time_continue=1&v=okUoOJkZmFw). You can use it to experiment with your own data, or fork it to create something new.
+This React-based dashboard template was created for the [Mapbox Live session on building custom business intelligence tools](https://www.youtube.com/watch?time_continue=1&v=okUoOJkZmFw) and is a starting point for building your own dashboard or data visualization. You can use it to experiment with your own data, or fork it to create something new.
 
 The app itself is bootstrapped with [Create React App](https://github.com/facebook/create-react-app). You do not need this installed for this demo to work, but you do need npm installed. You can either install this via `brew install node` or just follow [these instructions](https://docs.npmjs.com/getting-started/installing-node)
 
 This repo is meant to be instructional, so it will not be accepting issues or feature-based PRs.
 
-However, if you make something cool and want to share, please fork, update the README, and submit a PR. We want to see your work!!!
+However, if you make something cool and want to share, please fork, update the README, and submit a PR. We want to see your work! 
 
 ---
 
@@ -125,3 +125,7 @@ The same is true for map clicks, slider moves, and other zoom events. To learn m
 ## Examples using this boilerplate
 
 * [Mapbox Boilerplate Webinar Demo](https://www.mapbox.com/labs/busintel/)
+
+## Need help?
+
+Contact help@mapbox.com if you have any questions. A full set of Mapbox tutorials, documentation, and Help guides to further refine your dashboard are [available here](https://www.mapbox.com/help/).
